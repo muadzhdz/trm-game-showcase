@@ -20,7 +20,7 @@ Koleksi portofolio karya game interaktif dan aset digital 3D yang dikembangkan o
 
 Seluruh paket hasil kompilasi, biner eksekutabel, aplikasi siap instal, serta aset 3D berukuran penuh telah diunggah dan dapat diunduh langsung melalui halaman GitHub Releases resmi:
 
-- Tautan Rilis Resmi: [v1.0.0 - Rilis Pameran Karya](https://github.com/muadzhdz/trm-game-showcase/releases/tag/v1.0.0)
+- Tautan Rilis Resmi: [v1.1.0 - Rilis Pameran Karya (Dukungan Layar Penuh Dinamis)](https://github.com/muadzhdz/trm-game-showcase/releases/tag/v1.1.0)
 
 ### Rincian Berkas Rilis
 

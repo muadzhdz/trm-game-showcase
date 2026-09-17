@@ -1,0 +1,30 @@
+# Build and binary artifacts
+target/
+bin/
+*.class
+*.jar
+*.war
+*.ear
+
+# Large standalone archives and packages
+*.zip
+*.tar.gz
+*.apk
+*.blend
+*.blend1
+release_binaries/
+NerrowBuild/
+
+# Native and executable files
+*.exe
+*.dll
+*.so
+*.dylib
+
+# IDE and OS configurations
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+*.log

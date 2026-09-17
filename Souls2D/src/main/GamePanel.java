@@ -237,10 +237,36 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     
+    private java.awt.image.BufferedImage virtualBuffer;
+
+    public Point getVirtualPoint(Point screenPoint) {
+        if (screenPoint == null) return new Point(0, 0);
+        int panelW = getWidth();
+        int panelH = getHeight();
+        if (panelW <= 0 || panelH <= 0) return screenPoint;
+        
+        double scale = Math.min((double) panelW / screenWidth, (double) panelH / screenHeight);
+        int scaledW = (int) Math.round(screenWidth * scale);
+        int scaledH = (int) Math.round(screenHeight * scale);
+        int offsetX = (panelW - scaledW) / 2;
+        int offsetY = (panelH - scaledH) / 2;
+        
+        int vx = (int) Math.round((screenPoint.x - offsetX) / scale);
+        int vy = (int) Math.round((screenPoint.y - offsetY) / scale);
+        return new Point(vx, vy);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        
+        if (virtualBuffer == null) {
+            virtualBuffer = new java.awt.image.BufferedImage(screenWidth, screenHeight, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+        }
+        
+        Graphics2D g2 = virtualBuffer.createGraphics();
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, screenWidth, screenHeight);
         
         // Draw based on current game state
         switch(gameState) {
@@ -274,6 +300,24 @@ public class GamePanel extends JPanel implements Runnable {
         }
         
         g2.dispose();
+
+        Graphics2D panelG2 = (Graphics2D) g;
+        int panelW = getWidth();
+        int panelH = getHeight();
+        if (panelW <= 0) panelW = screenWidth;
+        if (panelH <= 0) panelH = screenHeight;
+
+        panelG2.setColor(Color.BLACK);
+        panelG2.fillRect(0, 0, panelW, panelH);
+
+        double scale = Math.min((double) panelW / screenWidth, (double) panelH / screenHeight);
+        int scaledW = (int) Math.round(screenWidth * scale);
+        int scaledH = (int) Math.round(screenHeight * scale);
+        int offsetX = (panelW - scaledW) / 2;
+        int offsetY = (panelH - scaledH) / 2;
+
+        panelG2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+        panelG2.drawImage(virtualBuffer, offsetX, offsetY, scaledW, scaledH, null);
     }
     
     private void drawGameplay(Graphics2D g2) {

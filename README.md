@@ -65,6 +65,8 @@ Seluruh paket hasil kompilasi, biner eksekutabel, aplikasi siap instal, serta as
 
 ### 1. PlatformMazeGame
 
+![Preview PlatformMazeGame](docs/images/preview-platformmazegame.png)
+
 Game puzzle labirin berbasis grid dua dimensi yang mengedepankan sinkronisasi arah dan ketepatan navigasi.
 
 - Mekanisme Permainan:
@@ -77,6 +79,8 @@ Game puzzle labirin berbasis grid dua dimensi yang mengedepankan sinkronisasi ar
 - Lokasi Kode Sumber: Direktori `PlatformMazeGame/` (struktur Maven)
 
 ### 2. Souls2D
+
+![Preview Souls2D](docs/images/preview-souls2d.png)
 
 Game petualangan horor bertema penjelajahan ruang bawah tanah gelap dengan sistem kecerdasan buatan musuh bayangan dan ritual altar.
 

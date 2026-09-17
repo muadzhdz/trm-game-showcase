@@ -17,11 +17,14 @@ public class Main {
 
         JFrame frame = new JFrame("Platform Maze Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.getContentPane().setBackground(java.awt.Color.BLACK);
+        frame.setResizable(true);
         frame.add(game);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        game.requestFocusInWindow();
 
         game.start();
     }

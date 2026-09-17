@@ -16,42 +16,23 @@ public class Game extends Canvas {
     public static final int WIDTH = 320 * SCALE;   // 960
     public static final int HEIGHT = 180 * SCALE;  // 540
 
-    private JFrame frame;
+    private java.awt.image.BufferedImage offscreenBuffer = new java.awt.image.BufferedImage(WIDTH, HEIGHT, java.awt.image.BufferedImage.TYPE_INT_RGB);
     private GameLoop gameLoop;
-
     private StageManager stageManager;
-
-    // ✅ pause state
     private GameState pauseState = GameState.PLAYING;
-
-    // ✅ input
     private Player1Input player1Input;
 
     public Game() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setBackground(Color.BLACK);
 
         stageManager = new StageManager();
 
         player1Input = new Player1Input(stageManager.getPlayer());
         addKeyListener(player1Input);
 
-        frame = new JFrame("Platform Maze Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.add(this);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
         setFocusable(true);
         requestFocusInWindow();
-
-        frame.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowOpened(java.awt.event.WindowEvent e) {
-                requestFocusInWindow();
-            }
-        });
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -122,5 +103,15 @@ public class Game extends Canvas {
             g.drawString("ESC = Resume", WIDTH / 2 - 80, HEIGHT / 2 + 10);
             g.drawString("R = Restart", WIDTH / 2 - 70, HEIGHT / 2 + 40);
         }
+    }
+
+    public java.awt.image.BufferedImage getOffscreenBuffer() {
+        return offscreenBuffer;
+    }
+
+    public void renderToBuffer() {
+        Graphics g = offscreenBuffer.getGraphics();
+        render(g);
+        g.dispose();
     }
 }

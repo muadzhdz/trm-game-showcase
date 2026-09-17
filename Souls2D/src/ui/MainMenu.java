@@ -87,9 +87,10 @@ public class MainMenu {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (gp.gameState == GameStateManager.MAIN_MENU) {
-                    if (playButton.contains(e.getPoint())) {
+                    Point p = gp.getVirtualPoint(e.getPoint());
+                    if (playButton.contains(p)) {
                         gp.startGame();
-                    } else if (exitButton.contains(e.getPoint())) {
+                    } else if (exitButton.contains(p)) {
                         System.exit(0);
                     }
                 }
@@ -98,8 +99,9 @@ public class MainMenu {
             @Override
             public void mouseMoved(MouseEvent e) {
                 if (gp.gameState == GameStateManager.MAIN_MENU) {
-                    mouseOverPlay = playButton.contains(e.getPoint());
-                    mouseOverExit = exitButton.contains(e.getPoint());
+                    Point p = gp.getVirtualPoint(e.getPoint());
+                    mouseOverPlay = playButton.contains(p);
+                    mouseOverExit = exitButton.contains(p);
                     gp.repaint();
                 }
             }
@@ -109,8 +111,9 @@ public class MainMenu {
             @Override
             public void mouseMoved(MouseEvent e) {
                 if (gp.gameState == GameStateManager.MAIN_MENU) {
-                    mouseOverPlay = playButton.contains(e.getPoint());
-                    mouseOverExit = exitButton.contains(e.getPoint());
+                    Point p = gp.getVirtualPoint(e.getPoint());
+                    mouseOverPlay = playButton.contains(p);
+                    mouseOverExit = exitButton.contains(p);
                     gp.repaint();
                 }
             }

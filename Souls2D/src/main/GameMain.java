@@ -7,7 +7,8 @@ public class GameMain {
     public static void main(String[] args) {
         JFrame window = new JFrame("Soul Escape - Horror Adventure");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
+        window.getContentPane().setBackground(java.awt.Color.BLACK);
+        window.setResizable(true);
         
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);

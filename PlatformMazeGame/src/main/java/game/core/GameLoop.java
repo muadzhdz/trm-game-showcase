@@ -1,6 +1,7 @@
 package game.core;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 public class GameLoop implements Runnable {
@@ -47,12 +48,29 @@ public class GameLoop implements Runnable {
                 delta--;
             }
 
-            Graphics g = bs.getDrawGraphics();
-            g.clearRect(0, 0, Game.WIDTH, Game.HEIGHT);
+            game.renderToBuffer();
 
-            game.render(g);
+            Graphics2D g2 = (Graphics2D) bs.getDrawGraphics();
+            int screenW = game.getWidth();
+            int screenH = game.getHeight();
+            if (screenW <= 0) screenW = Game.WIDTH;
+            if (screenH <= 0) screenH = Game.HEIGHT;
 
-            g.dispose();
+            // Clear full canvas with solid black
+            g2.setColor(java.awt.Color.BLACK);
+            g2.fillRect(0, 0, screenW, screenH);
+
+            // Calculate aspect-ratio preserving scaling and centering
+            double scale = Math.min((double) screenW / Game.WIDTH, (double) screenH / Game.HEIGHT);
+            int scaledW = (int) Math.round(Game.WIDTH * scale);
+            int scaledH = (int) Math.round(Game.HEIGHT * scale);
+            int offsetX = (screenW - scaledW) / 2;
+            int offsetY = (screenH - scaledH) / 2;
+
+            g2.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            g2.drawImage(game.getOffscreenBuffer(), offsetX, offsetY, scaledW, scaledH, null);
+
+            g2.dispose();
             bs.show();
 
             // biar CPU ga 100%
